@@ -2,26 +2,26 @@
 // Required External Modules
 
 const express = require("express");
-const path = require("path");
+// bring in join method from path
+const { join } = require("path");
 
 // App Variables 
 
 const app = express();
-const port = process.env.PORT || "8000";
 
-// App Configuration
+require('dotenv').config()
+// Bring in Handlebars
+app.engine(".hbs", require("express-handlebars")({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-app.use(express.static(path.join(__dirname, "public")));
+//middleware to help serve all front end
+app.use(express.static(join(__dirname,'/public/')))
+//to accept json
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
-// Route Definitions
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" });
-});
+//bring in routes from controllers index
+app.use(require('./controllers/index.js'))
 
-
-// Server Activation
-app.listen(port, () => {
-  console.log(`Listening to requests on http://localhost:${port}`);
-});
+//app to listen on port and show URL
+app.listen(process.env.PORT || 3000, () => console.log('http://localhost:3000'))
