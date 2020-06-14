@@ -15,7 +15,7 @@ app.engine(".hbs", require("express-handlebars")({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
 //middleware to help serve all front end
-app.use(express.static(join(__dirname,'/public/')))
+app.use(express.static(join(__dirname +'/public/')))
 //to accept json
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
