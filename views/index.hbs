@@ -1,0 +1,40 @@
+<h1 class="burgerTitle">Eat Da Burger</h1>
+<img class="burgerImg" src="../assets/img/burger.png">
+<div class="formDiv">
+  <form>
+    <p>
+      <label for="title">Enter a Burger:</label>
+      <input type="text" name="burgerName" id="burgerName" placeholder="NOM NOM NOM NOM NOM">
+    </p>
+    <button id="addBurger">Add Burger</button>
+    <p id="description">Add a burger you want to devour!</p>
+  </form>
+</div>
+<div class="col-md-6 notDevoured">
+  <ul id="burgersList">
+    {{#each burgers}}
+    {{#unless devoured}}
+    <li>
+      {{this.burger_name}}
+      <button class="devour" data-id="{{this.id}}" onclick="eatBurger({{this.id}})">Devour Me</button>
+    </li>
+    {{/unless}}
+    {{/each}}
+  </ul>
+</div>
+<div class="col-md-6 devoured">
+  <p>I'm devoured</p>
+  <ul id="eatenBurgers">
+    {{#each burgers}}
+    {{#if devoured}}
+    <li>
+      {{this.burger_name}}
+    </li>
+    {{/if}}
+    {{/each}}
+  </ul>
+</div>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./Burger.js"></script>
